@@ -72,7 +72,7 @@ class player_session:
 
 
     def CreateSession(self):
-        num_of_event_per_session = self.fake.random_int(min=2, max=10)
+        num_of_event_per_session = self.fake.random_int(min=2, max=1000)
         self.SetLoginEvent()
 
         for x in range(0, num_of_event_per_session):
