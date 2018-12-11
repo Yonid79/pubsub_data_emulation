@@ -26,7 +26,7 @@ class player_session:
 
 
     def SetEventDT(self):
-        secs = self.fake.random_int(min=4, max=120)
+        secs = self.fake.random_int(min=1, max=3)
         self.event_dt = self.event_dt + datetime.timedelta(seconds=secs)
         self.event_unix_ts = timegm(self.event_dt.timetuple())
 
@@ -63,7 +63,7 @@ class player_session:
         self.session_events= []
         self.game_id = self.fake.random_element(elements=(self.games_list))
         self.user_id = self.fake.uuid4()
-        self.event_dt = self.fake.date_time_between(start_date="-3d", end_date="now", tzinfo=None)
+        self.event_dt = datetime.datetime.now() #self.fake.date_time_between(start_date="-3d", end_date="now", tzinfo=None)
         self.event_unix_ts = timegm(self.event_dt.timetuple())
         self.event_name = 'login'
         self.ip_addr = self.fake.ipv4_public()
