@@ -5,6 +5,7 @@ import json
 import os
 import time
 from fake_data_gen import player_session
+from fake_retail_data import basket_orders
 import threading
 #from multiprocessing.pool import ThreadPool as Pool
 import multiprocessing
@@ -12,6 +13,7 @@ import argparse
 from google.cloud import pubsub_v1  #pip install google-cloud-pubsub
 
 ap = argparse.ArgumentParser()
+ap.add_argument("-ty", "--type", required=True,help="gaming or retail")
 ap.add_argument("-e", "--env", required=True,help="local or gcp env")
 ap.add_argument("-t", "--topic", required=True,help="topic")
 ap.add_argument("-ep", "--project", required=True,help="project")
@@ -22,6 +24,7 @@ args = vars(ap.parse_args())
 topic_name = args['topic']
 project_id = args['project']
 threads_count = int(args['threads'])
+producer_type = args['type']
 
 
 if args['env'] != 'gcp':
@@ -61,6 +64,23 @@ def send_session_to_pubsub(thread_id):
             print('thread {} , published {} rows, rows/s = {}'.format(thread_id,rows_count,rps))
 
 
+def send_basket_to_pubsub(thread_id):
+    rows_count =0
+    start = time.time()
+    while True:
+        bask = basket_orders()
+        basket_rows = bask.basket_orders()
+        for r in bask.basket:
+            print r
+            #message_future = pubsub_client.publish(topic_path, data=r.encode('utf-8'))
+            rows_count+=1
+
+        if rows_count % 100 == 0:
+            end = time.time()
+            et = end - start
+            rps = rows_count / et
+            print('thread {} , published {} rows, rows/s = {}'.format(thread_id,rows_count,rps))
+
 
 
 def callback(message_future):
@@ -72,22 +92,17 @@ def callback(message_future):
 
 #pool = Pool(threads_count)
 threads = []
-for i in range(0,threads_count):
 
-    t = threading.Thread(target=send_session_to_pubsub, args=(i, ))
-    threads.append(t)
-    #pool.apply_async(send_session_to_pubsub, (i,))
-    #p = multiprocessing.Process(target=send_session_to_pubsub, args=(i,))
-    #threads.append(p)
-    #p.start()
-    #time.sleep(1)
 
-    #process = multiprocessing.Process(target=send_session_to_pubsub(i))
-    #threads.append(process)
-    #t.start()
+if producer_type=='retail':
+    for i in range(0,threads_count):
+        t = threading.Thread(target=send_basket_to_pubsub, args=(i, ))
+        threads.append(t)
+else:
+    for i in range(0,threads_count):
+        t = threading.Thread(target=send_session_to_pubsub, args=(i, ))
+        threads.append(t)
 
-#pool.close()
-#pool.join()
 
 
 for x in threads:
@@ -98,9 +113,6 @@ for x in threads:
     x.join()
 
 
-
-# We must keep the main thread from exiting to allow it to process
-# messages in the background.
 
 while True:
     time.sleep(10)
