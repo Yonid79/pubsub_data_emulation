@@ -71,8 +71,8 @@ def send_basket_to_pubsub(thread_id):
         bask = basket_orders()
         basket_rows = bask.basket_orders()
         for r in bask.basket:
-            print r
-            #message_future = pubsub_client.publish(topic_path, data=r.encode('utf-8'))
+            #print r
+            message_future = pubsub_client.publish(topic_path, data=r.encode('utf-8'))
             rows_count+=1
 
         if rows_count % 100 == 0:
