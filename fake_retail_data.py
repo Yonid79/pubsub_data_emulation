@@ -15,34 +15,34 @@ class basket_orders:
     fake.add_provider(date_time)
 
     def __init__(self):
-        self.base_stores_list = {'San Francisco': 35,'New York': 25,'Tel Aviv': 15,'London': 5,'Los Angeles': 5,'Texsas': 5,'Atlanta':1,'Paris':4,'Chicago':3,'Barcelona':2}
+        self.base_stores_list = {'San Francisco': random.randint(1, 20),'New York': random.randint(1, 40),'Tel Aviv': random.randint(1, 35),'London': random.randint(1, 15),'Los Angeles': random.randint(1, 25),'Texsas': random.randint(1, 12),'Atlanta':random.randint(1, 11),'Paris':random.randint(1, 8),'Chicago':random.randint(1, 13),'Barcelona':random.randint(1, 12)}
         self.stores_list = [k for k in self.base_stores_list for dummy in range(self.base_stores_list[k])]
         random.shuffle(self.stores_list, random.random)
 
-        self.base_items = [{'name': 'Milk', 'dist':20 , 'price':6.5},
-                           {'name': 'Ham', 'dist': 40 , 'price': 4.9},
-                           {'name': 'Gum', 'dist': 3, 'price': 1.5},
-                           {'name': 'Cheese', 'dist': 15, 'price': 10.2},
-                           {'name': 'Meat', 'dist': 30, 'price': 12.5},
-                           {'name': 'Ice Cream', 'dist': 10, 'price': 7.9},
-                           {'name': 'Eggs', 'dist': 25, 'price': 8.5},
-                           {'name': 'Oil', 'dist': 5, 'price': 8.2},
-                           {'name': 'Onion', 'dist': 4, 'price': 2.1},
-                           {'name': 'Fish', 'dist': 15, 'price': 10.5},
-                           {'name': 'Nuts', 'dist': 10, 'price': 2.1},
-                           {'name': 'Yogurt', 'dist': 5, 'price': 2.9},
-                           {'name': 'Bread', 'dist': 20, 'price': 6.1},
-                           {'name': 'Rice', 'dist': 8, 'price': 5.2},
-                           {'name': 'Orange juice', 'dist': 5, 'price': 8.7},
-                           {'name': 'Carrots', 'dist': 5, 'price': 2.5},
-                           {'name': 'Cereal', 'dist': 4, 'price': 12.9},
-                           {'name': 'Sweets', 'dist': 15, 'price': 7.2},
-                           {'name': 'Wine', 'dist': 5, 'price': 15.5},
-                           {'name': 'Grapes', 'dist': 5, 'price': 5.5},
-                           {'name': 'Pineapple', 'dist': 2, 'price': 4.3},
-                           {'name': 'Bamba', 'dist': 2, 'price': 3.4},
-                           {'name': 'Bagel', 'dist': 4, 'price': 5.2},
-                           {'name': 'Cola', 'dist': 10, 'price': 5.3}
+        self.base_items = [{'name': 'Milk', 'dist':random.randint(1, 50) , 'price':6.5},
+                           {'name': 'Ham', 'dist': random.randint(1, 10) , 'price': 4.9},
+                           {'name': 'Gum', 'dist': random.randint(1, 30), 'price': 1.5},
+                           {'name': 'Cheese', 'dist': random.randint(1, 5), 'price': 10.2},
+                           {'name': 'Meat', 'dist': random.randint(1, 12), 'price': 12.5},
+                           {'name': 'Ice Cream', 'dist': random.randint(1, 25), 'price': 7.9},
+                           {'name': 'Eggs', 'dist': random.randint(1, 5), 'price': 8.5},
+                           {'name': 'Oil', 'dist': random.randint(1, 10), 'price': 8.2},
+                           {'name': 'Onion', 'dist': random.randint(1, 60), 'price': 2.1},
+                           {'name': 'Fish', 'dist': random.randint(1, 25), 'price': 10.5},
+                           {'name': 'Nuts', 'dist': random.randint(1, 15), 'price': 2.1},
+                           {'name': 'Yogurt', 'dist': random.randint(1, 40), 'price': 2.9},
+                           {'name': 'Bread', 'dist': random.randint(1, 10), 'price': 6.1},
+                           {'name': 'Rice', 'dist': random.randint(1, 18), 'price': 5.2},
+                           {'name': 'Orange juice', 'dist': random.randint(1, 10), 'price': 8.7},
+                           {'name': 'Carrots', 'dist': random.randint(1, 8), 'price': 2.5},
+                           {'name': 'Cereal', 'dist': random.randint(1, 12), 'price': 12.9},
+                           {'name': 'Sweets', 'dist': random.randint(1, 35), 'price': 7.2},
+                           {'name': 'Wine', 'dist': random.randint(1, 15), 'price': 15.5},
+                           {'name': 'Grapes', 'dist': random.randint(1, 5), 'price': 5.5},
+                           {'name': 'Pineapple', 'dist': random.randint(1, 12), 'price': 4.3},
+                           {'name': 'Bamba', 'dist': random.randint(1, 30), 'price': 3.4},
+                           {'name': 'Bagel', 'dist': random.randint(1, 14), 'price': 5.2},
+                           {'name': 'Cola', 'dist': random.randint(1, 20), 'price': 5.3}
                            ]
         self.items = [{'name': i['name'], 'price': i['price']} for i in self.base_items for f in range(i['dist'])]
         random.shuffle(self.items, random.random)
